@@ -9,6 +9,7 @@ import android.widget.ExpandableListView;
 import android.widget.Toast;
 
 import com.example.gncal.davetiye.Business.InviteeListAdapter;
+import com.example.gncal.davetiye.Business.SendSMS;
 import com.example.gncal.davetiye.Model.Contact;
 import com.example.gncal.davetiye.Model.Invitee;
 import com.example.gncal.davetiye.Model.InviteeStatus;
@@ -24,6 +25,7 @@ public class InviteeActivity extends AppCompatActivity {
     InviteeListAdapter invitee_adapter;
 
     Button pickContacts;
+    Button sendSMS;
     final int CONTACT_PICK_REQUEST = 1000;
 
     @Override
@@ -33,6 +35,7 @@ public class InviteeActivity extends AppCompatActivity {
 
 
         pickContacts = (Button) findViewById(R.id.btn_pick_contacts);
+        sendSMS = (Button) findViewById(R.id.btn_send_SMS);
 
         pickContacts.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -40,6 +43,13 @@ public class InviteeActivity extends AppCompatActivity {
 
                 Intent intentContactPick = new Intent(InviteeActivity.this,ContactsPickerActivity.class);
                 InviteeActivity.this.startActivityForResult(intentContactPick,CONTACT_PICK_REQUEST);
+            }
+        });
+
+        sendSMS.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new SendSMS().execute(invitees);
             }
         });
     }
